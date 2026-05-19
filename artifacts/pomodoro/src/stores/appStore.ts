@@ -57,9 +57,15 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     saveState(get());
   },
   
-  startTimer: () => set({ isRunning: true }),
+  startTimer: () => {
+    set({ isRunning: true });
+    saveState(get());
+  },
   
-  pauseTimer: () => set({ isRunning: false }),
+  pauseTimer: () => {
+    set({ isRunning: false });
+    saveState(get());
+  },
   
   resetTimer: () => {
     const { screen, sessionDuration, breakDuration } = get();
@@ -67,10 +73,12 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
       isRunning: false, 
       secondsLeft: screen === 'break' ? breakDuration : sessionDuration 
     });
+    saveState(get());
   },
   
   addTime: (seconds) => {
     set((state) => ({ secondsLeft: state.secondsLeft + seconds }));
+    saveState(get());
   },
   
   tickTimer: () => {
@@ -107,6 +115,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
   endBreak: () => {
     const { sessionDuration } = get();
     set({ screen: 'hero', secondsLeft: sessionDuration, isRunning: false });
+    saveState(get());
   },
 
   setSecondsLeft: (seconds: number) => set({ secondsLeft: seconds })

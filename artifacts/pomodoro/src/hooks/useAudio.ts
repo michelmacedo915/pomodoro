@@ -6,13 +6,11 @@ interface SynthHandle {
 }
 
 function buildNoiseBuffer(ctx: AudioContext, track: Exclude<AmbientTrack, null>): AudioBuffer {
-  const duration = 8;
-  const n = ctx.sampleRate * duration;
+  const n = ctx.sampleRate * 10;
   const buffer = ctx.createBuffer(1, n, ctx.sampleRate);
   const data = buffer.getChannelData(0);
 
   if (track === 'rain') {
-    // Pink noise approximation (Paul Kellet filter)
     let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0;
     for (let i = 0; i < n; i++) {
       const w = Math.random() * 2 - 1;
@@ -25,7 +23,6 @@ function buildNoiseBuffer(ctx: AudioContext, track: Exclude<AmbientTrack, null>)
       data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + w * 0.5362) / 6;
     }
   } else if (track === 'wind') {
-    // Brown (red) noise — low rumble
     let last = 0;
     for (let i = 0; i < n; i++) {
       const w = Math.random() * 2 - 1;
@@ -33,18 +30,15 @@ function buildNoiseBuffer(ctx: AudioContext, track: Exclude<AmbientTrack, null>)
       data[i] = last * 3.5;
     }
   } else {
-    // Lo-fi: white noise to be heavily filtered
     for (let i = 0; i < n; i++) {
       data[i] = Math.random() * 2 - 1;
     }
   }
-
   return buffer;
 }
 
 function startSynth(track: Exclude<AmbientTrack, null>): SynthHandle {
   const ctx = new AudioContext();
-
   const buffer = buildNoiseBuffer(ctx, track);
   const source = ctx.createBufferSource();
   source.buffer = buffer;
@@ -71,7 +65,6 @@ function startSynth(track: Exclude<AmbientTrack, null>): SynthHandle {
     source.connect(bp);
     bp.connect(gain);
   } else {
-    // Lo-fi: low-pass + slight resonance
     const lp = ctx.createBiquadFilter();
     lp.type = 'lowpass';
     lp.frequency.value = 600;
@@ -94,14 +87,27 @@ function startSynth(track: Exclude<AmbientTrack, null>): SynthHandle {
   };
 }
 
+const TRACK_PATHS: Record<Exclude<AmbientTrack, null>, string> = {
+  rain: '/audio/rain-loop.mp3',
+  lofi: '/audio/lofi-loop.mp3',
+  wind: '/audio/wind-loop.mp3',
+};
+
 export function useAudio(track: AmbientTrack) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const synthRef = useRef<SynthHandle | null>(null);
-  const currentTrackRef = useRef<AmbientTrack>(null);
+  const activeRef = useRef<AmbientTrack>(null);
 
   useEffect(() => {
-    if (track === currentTrackRef.current) return;
-    currentTrackRef.current = track;
+    if (track === activeRef.current) return;
+    activeRef.current = track;
 
+    // Stop previous
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = '';
+      audioRef.current = null;
+    }
     if (synthRef.current) {
       synthRef.current.stop();
       synthRef.current = null;
@@ -109,17 +115,32 @@ export function useAudio(track: AmbientTrack) {
 
     if (!track) return;
 
-    try {
-      synthRef.current = startSynth(track);
-    } catch (err) {
-      console.warn('Audio synthesis failed:', err);
-    }
+    // Try HTML audio first (uses the generated mp3 files)
+    const audio = new Audio(TRACK_PATHS[track]);
+    audio.loop = true;
+    audio.volume = 0.4;
+
+    audio.play().then(() => {
+      audioRef.current = audio;
+    }).catch(() => {
+      // File unavailable — fall back to Web Audio synthesis
+      try {
+        synthRef.current = startSynth(track);
+      } catch (err) {
+        console.warn('Audio fallback failed:', err);
+      }
+    });
 
     return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
       if (synthRef.current) {
         synthRef.current.stop();
         synthRef.current = null;
       }
+      activeRef.current = null;
     };
   }, [track]);
 }
