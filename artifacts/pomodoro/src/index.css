@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--shell);
+  --color-foreground: hsl(0 0% 100%);
+  --color-border: hsl(0 0% 20%);
+  --color-input: hsl(0 0% 15%);
+  --color-ring: hsl(0 0% 80%);
+
+  --color-card: hsl(0 0% 10%);
+  --color-card-foreground: hsl(0 0% 100%);
+  --color-card-border: hsl(0 0% 20%);
+
+  --color-popover: hsl(0 0% 10%);
+  --color-popover-foreground: hsl(0 0% 100%);
+  --color-popover-border: hsl(0 0% 20%);
+
+  --color-primary: hsl(0 0% 100%);
+  --color-primary-foreground: hsl(0 0% 0%);
+  --color-primary-border: hsl(0 0% 80%);
+
+  --color-secondary: hsl(0 0% 20%);
+  --color-secondary-foreground: hsl(0 0% 100%);
+  --color-secondary-border: hsl(0 0% 30%);
+
+  --color-muted: hsl(0 0% 15%);
+  --color-muted-foreground: hsl(0 0% 60%);
+  --color-muted-border: hsl(0 0% 25%);
+
+  --color-accent: hsl(0 0% 20%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-accent-border: hsl(0 0% 30%);
+
+  --color-destructive: hsl(0 100% 50%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-destructive-border: hsl(0 100% 40%);
+
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 52px;
+}
+
+:root {
+  /* Spacing — 8px grid */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+
+  /* Sizes */
+  --size-label: 9px;
+  --size-body: 14px;
+  --size-num-sm: 22px;
+  --size-num-md: 48px;
+  --size-num-lg: 96px;
+
+  /* Default theme (midnight) */
+  --shell: #0F1729;
+  --timer: #1C50D8;
+  --timer-text: #FFFFFF;
+  --plus: #FF9500;
+  --plus-text: #0A0A0A;
+  --reset: #0F1729;
+  --reset-text: #FF9500;
+  --progress: #0A1A3F;
+  --progress-dot: #FF9500;
+  --streak: #FF9500;
+  --streak-text: #0A0A0A;
+  --ambient: #0A1A3F;
+  --ambient-active: #1C50D8;
+}
+
+.dark {
+  --shell: #0F1729;
+  --timer: #1C50D8;
+  --timer-text: #FFFFFF;
+  --plus: #FF9500;
+  --plus-text: #0A0A0A;
+  --reset: #0F1729;
+  --reset-text: #FF9500;
+  --progress: #0A1A3F;
+  --progress-dot: #FF9500;
+  --streak: #FF9500;
+  --streak-text: #0A0A0A;
+  --ambient: #0A1A3F;
+  --ambient-active: #1C50D8;
+}
+
+/* Theme: Midnight */
+[data-theme="midnight"] {
+  --shell: #0F1729;
+  --timer: #1C50D8;
+  --timer-text: #FFFFFF;
+  --plus: #FF9500;
+  --plus-text: #0A0A0A;
+  --reset: #0F1729;
+  --reset-text: #FF9500;
+  --progress: #0A1A3F;
+  --progress-dot: #FF9500;
+  --streak: #FF9500;
+  --streak-text: #0A0A0A;
+  --ambient: #0A1A3F;
+  --ambient-active: #1C50D8;
+}
+
+/* Theme: Energy */
+[data-theme="energy"] {
+  --shell: #0A0A0A;
+  --timer: #FFD700;
+  --timer-text: #0A0A0A;
+  --plus: #FF3B30;
+  --plus-text: #FFFFFF;
+  --reset: #FF9500;
+  --reset-text: #0A0A0A;
+  --progress: #1F1F1F;
+  --progress-dot: #FFD700;
+  --streak: #FFD700;
+  --streak-text: #0A0A0A;
+  --ambient: #1F1F1F;
+  --ambient-active: #FFD700;
+}
+
+/* Theme: Sunset */
+[data-theme="sunset"] {
+  --shell: #1A0E0E;
+  --timer: #FF6B35;
+  --timer-text: #FFF5E1;
+  --plus: #FFF5E1;
+  --plus-text: #FF6B35;
+  --reset: #C73E1D;
+  --reset-text: #FFF5E1;
+  --progress: #2D1B1B;
+  --progress-dot: #FF6B35;
+  --streak: #FF6B35;
+  --streak-text: #1A0E0E;
+  --ambient: #2D1B1B;
+  --ambient-active: #FF6B35;
+}
+
+/* Theme: Break */
+[data-theme="break"] {
+  --shell: #0A1F1A;
+  --timer: #52B788;
+  --timer-text: #FFFFFF;
+  --plus: #E8E8E8;
+  --plus-text: #0A1F1A;
+  --reset: #5DADE2;
+  --reset-text: #FFFFFF;
+  --progress: #1E3A32;
+  --progress-dot: #52B788;
+  --streak: #52B788;
+  --streak-text: #0A1F1A;
+  --ambient: #1E3A32;
+  --ambient-active: #52B788;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    background: var(--shell);
+    color: hsl(0 0% 100%);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    transition: background-color 0.5s ease;
+    @apply antialiased;
+  }
+}
+
+@layer utilities {
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 181px);
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .tile {
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+@keyframes pulse-ambient {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.ambient-pulse {
+  animation: pulse-ambient 2s infinite ease-in-out;
+}
