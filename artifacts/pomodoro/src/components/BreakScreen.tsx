@@ -20,7 +20,6 @@ export default function BreakScreen() {
   return (
     <div
       data-testid="break-screen"
-      data-theme="break"
       style={{
         minHeight: '100dvh',
         background: 'var(--shell)',

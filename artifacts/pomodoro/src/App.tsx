@@ -17,8 +17,9 @@ export default function App() {
   useTimer();
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+    const applied = screen === 'break' ? 'break' : theme;
+    document.documentElement.setAttribute('data-theme', applied);
+  }, [theme, screen]);
 
   const renderScreen = () => {
     switch (screen) {

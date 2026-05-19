@@ -92,7 +92,7 @@ export const useAppStore = create<AppState & AppActions>((set, get) => ({
     
     set({
       ...newState,
-      isRunning: false,
+      isRunning: true,
       screen: 'break',
       secondsLeft: state.breakDuration,
       sessionNumber: (state.sessionNumber % 8) + 1
