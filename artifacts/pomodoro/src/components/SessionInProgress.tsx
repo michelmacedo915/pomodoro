@@ -14,6 +14,7 @@ export default function SessionInProgress() {
   const ambientTrack = useAppStore(s => s.ambientTrack);
   const pauseTimer = useAppStore(s => s.pauseTimer);
   const startTimer = useAppStore(s => s.startTimer);
+  const addTime = useAppStore(s => s.addTime);
   const setScreen = useAppStore(s => s.setScreen);
 
   const progress = (sessionDuration - secondsLeft) / sessionDuration;
@@ -125,27 +126,48 @@ export default function SessionInProgress() {
         </motion.div>
       </div>
 
-      <motion.button
-        data-testid="button-pause-resume"
-        whileTap={{ scale: 0.94 }}
-        onClick={handlePauseResume}
-        style={{
-          marginTop: '48px',
-          width: '120px',
-          height: '48px',
-          borderRadius: '24px',
-          border: '2px solid rgba(255,255,255,0.2)',
-          background: 'transparent',
-          color: 'rgba(255,255,255,0.9)',
-          fontSize: '14px',
-          fontWeight: 700,
-          cursor: 'pointer',
-          fontFamily: "'Inter', sans-serif",
-          letterSpacing: '0.01em',
-        }}
-      >
-        {isRunning ? 'Pause' : 'Resume'}
-      </motion.button>
+      <div style={{ display: 'flex', gap: '12px', marginTop: '48px' }}>
+        <motion.button
+          data-testid="button-pause-resume"
+          whileTap={{ scale: 0.94 }}
+          onClick={handlePauseResume}
+          style={{
+            width: '120px',
+            height: '48px',
+            borderRadius: '24px',
+            border: '2px solid rgba(255,255,255,0.2)',
+            background: 'transparent',
+            color: 'rgba(255,255,255,0.9)',
+            fontSize: '14px',
+            fontWeight: 700,
+            cursor: 'pointer',
+            fontFamily: "'Inter', sans-serif",
+            letterSpacing: '0.01em',
+          }}
+        >
+          {isRunning ? 'Pause' : 'Resume'}
+        </motion.button>
+
+        <motion.button
+          data-testid="button-add-time"
+          whileTap={{ scale: 0.94 }}
+          onClick={() => addTime(300)}
+          style={{
+            width: '72px',
+            height: '48px',
+            borderRadius: '24px',
+            border: 'none',
+            background: 'var(--plus)',
+            color: 'var(--plus-text)',
+            fontSize: '14px',
+            fontWeight: 800,
+            cursor: 'pointer',
+            fontFamily: "'Inter', sans-serif",
+          }}
+        >
+          +5
+        </motion.button>
+      </div>
 
       <motion.button
         data-testid="button-back-hero"
