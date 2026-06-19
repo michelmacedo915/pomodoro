@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Pomodoro",
+    "slug": "pomodoro",
+    "version": "0.1.0",
+    "scheme": "pomodoro",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F1729"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.studio.pomodoro"
+    },
+    "android": {
+      "package": "com.studio.pomodoro"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "server"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}

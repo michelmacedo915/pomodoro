@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default = Midnight. Swap the whole block at runtime from theme/themes.js.
+   RGB triples enable Tailwind <alpha-value>. (POMODORO_SPEC §3) */
+:root {
+  --shell: 15 23 41;
+  --timer: 28 80 216;
+  --timer-text: 255 255 255;
+  --plus: 255 149 0;
+  --reset: 15 23 41;
+  --reset-text: 255 149 0;
+  --progress: 10 26 63;
+  --progress-dot: 255 149 0;
+  --streak: 255 149 0;
+  --streak-text: 10 10 10;
+  --ambient: 10 26 63;
+  --ambient-active: 28 80 216;
+}

@@ -1,0 +1,41 @@
+{
+  "name": "pomodoro",
+  "version": "0.1.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "expo lint"
+  },
+  "dependencies": {
+    "expo": "latest",
+    "expo-router": "latest",
+    "expo-constants": "latest",
+    "expo-linking": "latest",
+    "expo-status-bar": "latest",
+    "react": "latest",
+    "react-native": "latest",
+    "react-native-safe-area-context": "latest",
+    "react-native-screens": "latest",
+    "nativewind": "latest",
+    "tailwindcss": "latest",
+    "react-native-reanimated": "latest",
+    "react-native-gesture-handler": "latest",
+    "react-native-keyboard-controller": "latest",
+    "@tanstack/react-query": "latest",
+    "zustand": "latest",
+    "react-hook-form": "latest",
+    "zod": "latest",
+    "@supabase/supabase-js": "latest",
+    "react-native-purchases": "latest",
+    "vexo-analytics": "latest",
+    "@sentry/react-native": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "latest"
+  },
+  "private": true,
+  "comment": "Run 'npx expo install --fix' after first install to pin every package to versions compatible with the installed Expo SDK. Add 'stream-chat-react-native' only if the app needs chat/video."
+}
